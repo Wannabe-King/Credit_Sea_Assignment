@@ -129,7 +129,7 @@ npm test
 ## 👨‍💻 Author
 **Priyanshu Sidar**
 📧 Email: [sidarsunita2@gmail.com]
-🔗 LinkedIn: [Your LinkedIn Profile](https://www.linkedin.com/in/priyanshu-sidar-639914144/)
+🔗 LinkedIn: [Priyanshu Sidar](https://www.linkedin.com/in/priyanshu-sidar-639914144/)
 
 ---
 
