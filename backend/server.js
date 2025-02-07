@@ -7,7 +7,7 @@ const reportRoutes = require("./routes/reportRoutes");
 const app = express();
 
 // Middleware
-app.use(cors());
+app.use(cors({ origin: "https://credit-sea-assignment-delta.vercel.app/" }));
 app.use(express.json());
 
 // Routes

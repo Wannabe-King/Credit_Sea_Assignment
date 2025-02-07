@@ -3,6 +3,8 @@ import axios from "axios";
 import { useDispatch } from "react-redux";
 import { fetchReports } from "../store/reportSlice";
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 const FileUpload = () => {
   const [file, setFile] = useState(null);
   const [uploading, setUploading] = useState(false);
@@ -19,7 +21,7 @@ const FileUpload = () => {
     formData.append("file", file);
 
     try {
-      await axios.post("http://localhost:5000/api/reports/upload", formData);
+      await axios.post(`${API_URL}/reports/upload`, formData);
       alert("File uploaded successfully!");
       dispatch(fetchReports()); // Fetch updated reports
       setFile(null);
