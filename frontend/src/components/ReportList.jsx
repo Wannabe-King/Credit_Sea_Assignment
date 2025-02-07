@@ -16,7 +16,7 @@ const ReportList = () => {
   };
 
   return (
-    <div className="max-w-4xl mx-auto p-4">
+    <div className="w-2xl mx-auto p-4">
       <h2 className="text-2xl font-semibold mb-6 text-gray-800">Credit Reports</h2>
 
       {loading ? (
@@ -28,11 +28,11 @@ const ReportList = () => {
           {reports.map((report, index) => (
             <div key={index} className="border rounded-lg shadow-md overflow-hidden">
               <div
-                className="flex items-center justify-between p-4 cursor-pointer"
-                onClick={() => toggleExpand(index)}
+                className="flex items-center justify-between p-4 "
+                
               >
                 <span className="text-lg font-medium text-gray-700">{report.name}</span>
-                <span className="text-gray-500">{expandedIndex === index ? "▲" : "▼"}</span>
+                <button className="text-lg font-medium text-white cursor-pointer" onClick={() => toggleExpand(index)}>Show Details</button>
               </div>
 
               {expandedIndex === index && (
