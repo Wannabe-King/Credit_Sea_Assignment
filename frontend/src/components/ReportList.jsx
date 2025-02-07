@@ -28,7 +28,7 @@ const ReportList = () => {
           {reports.map((report, index) => (
             <div key={index} className="border rounded-lg shadow-md overflow-hidden">
               <div
-                className="flex items-center justify-between p-4 cursor-pointer hover:bg-gray-50 transition-colors"
+                className="flex items-center justify-between p-4 cursor-pointer"
                 onClick={() => toggleExpand(index)}
               >
                 <span className="text-lg font-medium text-gray-700">{report.name}</span>

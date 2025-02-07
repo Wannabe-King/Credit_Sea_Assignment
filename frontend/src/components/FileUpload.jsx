@@ -33,7 +33,7 @@ const FileUpload = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center p-6 bg-gray-100 rounded-lg shadow-md w-full max-w-lg mx-auto">
+    <div className="flex flex-col items-center justify-center p-6 rounded-lg shadow-md w-full max-w-lg mx-auto">
       <h2 className="text-xl font-semibold mb-4">Upload XML File</h2>
 
       <input
