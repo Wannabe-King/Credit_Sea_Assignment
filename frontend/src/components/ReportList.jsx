@@ -1,41 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchReports } from "../store/reportSlice";
-
-const ReportCard = ({ report, isExpanded, toggleExpand }) => {
-  return (
-    <div className="bg-white shadow-lg rounded-lg p-4 mb-4 w-full max-w-2xl mx-auto">
-      <div className="flex justify-between items-center cursor-pointer" onClick={toggleExpand}>
-        <h3 className="text-xl font-semibold text-blue-600">{report.name}</h3>
-        <button className="bg-blue-500 text-white px-3 py-1 rounded">
-          {isExpanded ? "Hide Details" : "Show Details"}
-        </button>
-      </div>
-
-      {isExpanded && (
-        <div className="mt-4">
-          <div className="mb-3">
-            <h4 className="text-lg font-semibold border-b pb-2">Basic Details</h4>
-            <p><strong>Mobile:</strong> {report.mobile}</p>
-            <p><strong>PAN:</strong> {report.pan}</p>
-            <p><strong>Credit Score:</strong> {report.creditScore}</p>
-          </div>
-
-          <div className="mb-3">
-            <h4 className="text-lg font-semibold border-b pb-2">Report Summary</h4>
-            <p><strong>Total Accounts:</strong> {report.totalAccounts}</p>
-            <p><strong>Active Accounts:</strong> {report.activeAccounts}</p>
-            <p><strong>Closed Accounts:</strong> {report.closedAccounts}</p>
-            <p><strong>Current Balance:</strong> ₹{report.currentBalance}</p>
-            <p><strong>Secured Balance:</strong> ₹{report.securedBalance}</p>
-            <p><strong>Unsecured Balance:</strong> ₹{report.unsecuredBalance}</p>
-            <p><strong>Last 7 Days Enquiries:</strong> {report.last7DaysEnquiries}</p>
-          </div>
-        </div>
-      )}
-    </div>
-  );
-};
+import { ChevronDown, ChevronRight } from "lucide-react";
+import { Card, CardContent } from "@/components/ui/card";
 
 const ReportList = () => {
   const dispatch = useDispatch();
@@ -43,7 +10,7 @@ const ReportList = () => {
   const [expandedIndex, setExpandedIndex] = useState(null);
 
   useEffect(() => {
-    dispatch(fetchReports());
+    dispatch(fetchReports()); // Fetch reports from Redux store
   }, [dispatch]);
 
   const toggleExpand = (index) => {
@@ -51,22 +18,95 @@ const ReportList = () => {
   };
 
   return (
-    <div className="container mx-auto p-6">
-      <h2 className="text-3xl font-semibold mb-6 text-center">Credit Reports</h2>
+    <div className="max-w-4xl mx-auto p-4">
+      <h2 className="text-2xl font-semibold mb-6 text-gray-800">Credit Reports</h2>
 
       {loading ? (
-        <p className="text-gray-500 text-center">Loading...</p>
+        <div className="text-gray-500 text-center py-8">Loading...</div>
       ) : reports.length === 0 ? (
-        <p className="text-gray-500 text-center">No reports available.</p>
+        <div className="text-gray-500 text-center py-8">No reports available.</div>
       ) : (
-        reports.map((report, index) => (
-          <ReportCard 
-            key={index} 
-            report={report} 
-            isExpanded={expandedIndex === index} 
-            toggleExpand={() => toggleExpand(index)} 
-          />
-        ))
+        <div className="space-y-4">
+          {reports.map((report, index) => (
+            <Card key={index} className="overflow-hidden">
+              <div
+                className="flex items-center p-4 cursor-pointer hover:bg-gray-50 transition-colors"
+                onClick={() => toggleExpand(index)}
+              >
+                {expandedIndex === index ? (
+                  <ChevronDown className="h-5 w-5 text-gray-500 mr-2" />
+                ) : (
+                  <ChevronRight className="h-5 w-5 text-gray-500 mr-2" />
+                )}
+                <span className="text-lg font-medium text-gray-700">{report.name}</span>
+              </div>
+
+              {expandedIndex === index && (
+                <CardContent className="border-t">
+                  <div className="grid gap-6 p-2">
+                    {/* Basic Details */}
+                    <div>
+                      <h3 className="text-sm font-semibold text-gray-600 mb-2">
+                        Basic Details
+                      </h3>
+                      <div className="grid grid-cols-2 gap-4 text-sm">
+                        <div>Mobile: {report.mobile}</div>
+                        <div>PAN: {report.pan}</div>
+                        <div>Credit Score: {report.creditScore}</div>
+                      </div>
+                    </div>
+
+                    {/* Summary */}
+                    <div>
+                      <h3 className="text-sm font-semibold text-gray-600 mb-2">
+                        Report Summary
+                      </h3>
+                      <div className="grid grid-cols-2 md:grid-cols-3 gap-4 text-sm">
+                        <div>Total Accounts: {report.totalAccounts}</div>
+                        <div>Active: {report.activeAccounts}</div>
+                        <div>Closed: {report.closedAccounts}</div>
+                        <div>Balance: ₹{report.currentBalance}</div>
+                        <div>Secured: ₹{report.securedBalance}</div>
+                        <div>Unsecured: ₹{report.unsecuredBalance}</div>
+                      </div>
+                    </div>
+
+                    {/* Credit Accounts */}
+                    <div>
+                      <h3 className="text-sm font-semibold text-gray-600 mb-2">
+                        Credit Accounts
+                      </h3>
+                      <div className="overflow-x-auto">
+                        <table className="w-full text-sm">
+                          <thead>
+                            <tr className="bg-gray-50">
+                              <th className="p-2 text-left">Bank</th>
+                              <th className="p-2 text-left">Account</th>
+                              <th className="p-2 text-right">Overdue</th>
+                              <th className="p-2 text-right">Balance</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {report.creditAccounts.map((account, idx) => (
+                              <tr key={idx} className="border-t">
+                                <td className="p-2">{account.bankName}</td>
+                                <td className="p-2">{account.accountNumber}</td>
+                                <td className="p-2 text-right text-red-600">
+                                  ₹{account.overdueAmount}
+                                </td>
+                                <td className="p-2 text-right">₹{account.currentBalance}</td>
+                              </tr>
+                            ))}
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </CardContent>
+              )}
+            </Card>
+          ))}
+        </div>
       )}
     </div>
   );

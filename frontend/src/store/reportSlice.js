@@ -7,6 +7,7 @@ const API_URL = import.meta.env.VITE_API_URL;
 export const fetchReports = createAsyncThunk(
   "reports/fetchReports",
   async () => {
+    console.log(API_URL);
     const response = await axios.get(`${API_URL}/reports`);
     return response.data;
   }
