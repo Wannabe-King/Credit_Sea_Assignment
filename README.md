@@ -123,14 +123,13 @@ npm test
 ```
 
 ## 🎥 Submission
-✔ **GitHub Repo:** [Your Repo Link]
-✔ **Live App:** [Deployed Link]
-✔ **Demo Video:** [Video Link]
+✔ **Live App:** [[Deployed Link]](https://credit-sea-assignment-delta.vercel.app/)
+✔ **Demo Video:** [[Video Link]](https://www.loom.com/share/c902b1190a314b0aaaf96caf7f8cc562?sid=127a219d-46ac-48ed-aa9f-90c02b3ca122)
 
 ## 👨‍💻 Author
 **Priyanshu Sidar**
-📧 Email: [Your Email]
-🔗 LinkedIn: [Your LinkedIn Profile]
+📧 Email: [sidarsunita2@gmail.com]
+🔗 LinkedIn: [Your LinkedIn Profile](https://www.linkedin.com/in/priyanshu-sidar-639914144/)
 
 ---
 
