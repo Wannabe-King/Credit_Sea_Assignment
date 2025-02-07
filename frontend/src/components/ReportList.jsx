@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchReports } from "../store/reportSlice";
-import { ChevronDown, ChevronRight } from "lucide-react";
-import { Card, CardContent } from "@/components/ui/card";
 
 const ReportList = () => {
   const dispatch = useDispatch();
@@ -28,22 +26,18 @@ const ReportList = () => {
       ) : (
         <div className="space-y-4">
           {reports.map((report, index) => (
-            <Card key={index} className="overflow-hidden">
+            <div key={index} className="border rounded-lg shadow-md overflow-hidden">
               <div
-                className="flex items-center p-4 cursor-pointer hover:bg-gray-50 transition-colors"
+                className="flex items-center justify-between p-4 cursor-pointer hover:bg-gray-50 transition-colors"
                 onClick={() => toggleExpand(index)}
               >
-                {expandedIndex === index ? (
-                  <ChevronDown className="h-5 w-5 text-gray-500 mr-2" />
-                ) : (
-                  <ChevronRight className="h-5 w-5 text-gray-500 mr-2" />
-                )}
                 <span className="text-lg font-medium text-gray-700">{report.name}</span>
+                <span className="text-gray-500">{expandedIndex === index ? "▲" : "▼"}</span>
               </div>
 
               {expandedIndex === index && (
-                <CardContent className="border-t">
-                  <div className="grid gap-6 p-2">
+                <div className="border-t p-4">
+                  <div className="grid gap-6">
                     {/* Basic Details */}
                     <div>
                       <h3 className="text-sm font-semibold text-gray-600 mb-2">
@@ -102,9 +96,9 @@ const ReportList = () => {
                       </div>
                     </div>
                   </div>
-                </CardContent>
+                </div>
               )}
-            </Card>
+            </div>
           ))}
         </div>
       )}
